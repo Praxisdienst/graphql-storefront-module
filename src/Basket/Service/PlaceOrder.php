@@ -79,7 +79,6 @@ final class PlaceOrder
         ?bool $termsAndConditions = null, 
         ?string $remark = null
     ): OrderDataType {
-    {
         $this->eventDispatcher->dispatch(
             BeforePlaceOrder::NAME,
             new BeforePlaceOrder(
