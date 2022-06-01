@@ -10,10 +10,12 @@ declare(strict_types=1);
 namespace OxidEsales\GraphQL\Storefront\Product\Controller;
 
 use OxidEsales\GraphQL\Base\DataType\Pagination\Pagination as PaginationFilter;
+use OxidEsales\GraphQL\Base\Exception\InvalidLogin;
 use OxidEsales\GraphQL\Storefront\Product\DataType\Product as ProductDataType;
 use OxidEsales\GraphQL\Storefront\Product\DataType\ProductFilterList;
 use OxidEsales\GraphQL\Storefront\Product\DataType\Sorting;
 use OxidEsales\GraphQL\Storefront\Product\Service\Product as ProductService;
+use OxidEsales\GraphQL\Storefront\Product\DataType\VariantSelections;
 use TheCodingMachine\GraphQLite\Annotations\Query;
 use TheCodingMachine\GraphQLite\Types\ID;
 
@@ -51,5 +53,21 @@ final class Product
             $pagination,
             $sort ?? Sorting::fromUserInput()
         );
+    }
+
+    /**
+     * @Query()
+     *
+     * @param string $productId
+     * @param string[] $varSelids
+     * @return ?VariantSelections
+     * @throws InvalidLogin
+     * @throws ProductNotFound
+     */
+    public function variantSelections(string $productId, array $varSelids): ?VariantSelections
+    {
+        $varSelids = count($varSelids) > 0 ? $varSelids : null;
+
+        return $this->productService->variantSelections($productId, $varSelids);
     }
 }
