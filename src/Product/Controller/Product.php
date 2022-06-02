@@ -59,7 +59,7 @@ final class Product
      * @Query()
      *
      * @param string $productId
-     * @param string[] $varSelids
+     * @param ?string[] $varSelids
      * @return ?VariantSelections
      * @throws InvalidLogin
      * @throws ProductNotFound
