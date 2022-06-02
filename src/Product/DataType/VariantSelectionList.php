@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OxidEsales\GraphQL\Storefront\Product\DataType;
 
 use OxidEsales\Eshop\Application\Model\VariantSelectList as EshopVariantSelectionListModel;
-use OxidEsales\GraphQL\Storefront\Product\DataType\Selection;
 use TheCodingMachine\GraphQLite\Annotations\Field;
 use TheCodingMachine\GraphQLite\Annotations\Type;
 use TheCodingMachine\GraphQLite\Types\ID;
@@ -37,10 +36,10 @@ final class VariantSelectionList
     /**
      *  @Field()
      */
-    public function getActiveSelection(): ?VariantSelection
+    public function getActiveSelection(): ?Selection
     {
         if ($activeSelection = $this->variantSelectList->getActiveSelection()) {
-            return new VariantSelection($activeSelection);
+            return new Selection($activeSelection);
         }
 
         return null;
@@ -49,14 +48,14 @@ final class VariantSelectionList
     /**
      * @Field()
      *
-     * @return VariantSelection[]
+     * @return Selection[]
      */
     public function getFields(): array
     {
         $fields = [];
 
         foreach ($this->variantSelectList->getSelections() as $field) {
-            $fields[] = new VariantSelection($field);
+            $fields[] = new Selection($field);
         }
 
         return $fields;

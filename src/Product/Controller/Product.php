@@ -14,8 +14,8 @@ use OxidEsales\GraphQL\Base\Exception\InvalidLogin;
 use OxidEsales\GraphQL\Storefront\Product\DataType\Product as ProductDataType;
 use OxidEsales\GraphQL\Storefront\Product\DataType\ProductFilterList;
 use OxidEsales\GraphQL\Storefront\Product\DataType\Sorting;
-use OxidEsales\GraphQL\Storefront\Product\Service\Product as ProductService;
 use OxidEsales\GraphQL\Storefront\Product\DataType\VariantSelections;
+use OxidEsales\GraphQL\Storefront\Product\Service\Product as ProductService;
 use TheCodingMachine\GraphQLite\Annotations\Query;
 use TheCodingMachine\GraphQLite\Types\ID;
 
@@ -64,9 +64,9 @@ final class Product
      * @throws InvalidLogin
      * @throws ProductNotFound
      */
-    public function variantSelections(string $productId, array $varSelids): ?VariantSelections
+    public function variantSelections(string $productId, ?array $varSelids): ?VariantSelections
     {
-        $varSelids = count($varSelids) > 0 ? $varSelids : null;
+        $varSelids = (isset($varSelids) && !!count($varSelids)) ? $varSelids : null;
 
         return $this->productService->variantSelections($productId, $varSelids);
     }
