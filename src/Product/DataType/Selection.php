@@ -34,7 +34,7 @@ final class Selection
      */
     public function getValue(): string
     {
-        return (string) $this->selection->getName();
+        return (string) $this->selection->getValue();
     }
 
     /**
