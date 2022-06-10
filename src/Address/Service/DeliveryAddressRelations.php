@@ -40,7 +40,7 @@ final class DeliveryAddressRelations
     /**
      * @Field()
      */
-    public function country(DeliveryAddress $deliveryAddress): Country
+    public function country(DeliveryAddress $deliveryAddress): ?Country
     {
         return $this->countryService->country(
             $deliveryAddress->countryId()
