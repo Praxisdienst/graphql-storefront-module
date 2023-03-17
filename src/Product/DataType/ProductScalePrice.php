@@ -10,13 +10,14 @@ declare(strict_types=1);
 namespace OxidEsales\GraphQL\Storefront\Product\DataType;
 
 use OxidEsales\Eshop\Core\Model\BaseModel as EshopBaseModel;
+use OxidEsales\GraphQL\Base\DataType\ShopModelAwareInterface;
 use TheCodingMachine\GraphQLite\Annotations\Field;
 use TheCodingMachine\GraphQLite\Annotations\Type;
 
 /**
  * @Type()
  */
-final class ProductScalePrice
+final class ProductScalePrice implements ShopModelAwareInterface
 {
     /** @var EshopBaseModel */
     private $scalePrice;
@@ -25,6 +26,11 @@ final class ProductScalePrice
         EshopBaseModel $scalePrice
     ) {
         $this->scalePrice = $scalePrice;
+    }
+
+    public function getEshopModel(): EshopBaseModel
+    {
+        return $this->scalePrice;
     }
 
     /**
@@ -81,5 +87,13 @@ final class ProductScalePrice
     public function getAmountTo(): int
     {
         return (int) $this->scalePrice->getRawFieldData('oxamountto');
+    }
+
+    /**
+     * @return class-string
+     */
+    public static function getModelClass(): string
+    {
+        return BaseModel::class;
     }
 }
