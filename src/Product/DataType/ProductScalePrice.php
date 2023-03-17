@@ -94,6 +94,6 @@ final class ProductScalePrice implements ShopModelAwareInterface
      */
     public static function getModelClass(): string
     {
-        return BaseModel::class;
+        return EshopBaseModel::class;
     }
 }
